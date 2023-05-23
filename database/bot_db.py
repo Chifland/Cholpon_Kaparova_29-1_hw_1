@@ -6,7 +6,7 @@ import sqlite3
 
 def sql_create():
     global cursor, ments
-    ments = sqlite3.connect("bot.sqlite3")
+    ments = sqlite3.connect("bot1.sqlite3")
     cursor = ments.cursor()
 
     if ments:
@@ -14,6 +14,7 @@ def sql_create():
 
     ments.execute("CREATE TABLE IF NOT EXISTS mentors "
         "(id_db INTEGER PRIMARY KEY AUTOINCREMENT,"
+        "id_telegram VARCHAR (100),"
         "username VARCHAR (100),"
         "id_mentor INTEGER UNIQUE,"  
         "name VARCHAR (100),"   
@@ -26,8 +27,8 @@ async def sql_command_insert(state):
     async with state.proxy() as data:
         cursor.execute(
             "INSERT INTO mentors "
-            "(username, id_mentor, name, age, course_name, group_name) "
-            "VALUES (?, ?, ?, ?, ?,?)",
+            "(id_telegram, username, id_mentor, name, age, course_name, group_name) "
+            "VALUES (?, ?, ?, ?, ?,?,?)",
             tuple(data.values())
         )
         ments.commit()
@@ -46,3 +47,7 @@ async def sql_command_delete(id_db: str):
 
 async def sql_command_all():
     return cursor.execute("SELECT * FROM mentors").fetchall()
+
+
+async def sql_command_id():
+    return cursor.execute("SELECT id_telegram FROM mentors").fetchall()

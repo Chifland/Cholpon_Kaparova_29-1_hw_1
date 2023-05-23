@@ -31,6 +31,7 @@ async def fsm_start(message: types.Message):
 
 async def load_id_mentor(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
+        data['id_telegram'] = f"{message.from_user.id}"
         data['username'] = f"@{message.from_user.username}" if message.from_user.username else None
         data['id_mentor'] = message.text
     await FSMAdmin.next()

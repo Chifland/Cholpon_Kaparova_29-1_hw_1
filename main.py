@@ -3,11 +3,12 @@ import logging
 
 from config import db, bot, ADMINS
 
-from handler import commands, callback, admin, forms, fsmAdminMentor, extra
+from handler import commands, callback, admin, forms, fsmAdminMentor, extra, notifications
 from database.bot_db import sql_create
 
 
 async def on_startup(db):
+    await notifications.set_scheduler()
     await bot.send_message(ADMINS[0], "Я родился!")
     sql_create()
 
