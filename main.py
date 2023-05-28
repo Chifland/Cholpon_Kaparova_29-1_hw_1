@@ -3,7 +3,7 @@ import logging
 
 from config import db, bot, ADMINS
 
-from handler import commands, callback, admin, forms, fsmAdminMentor, extra, notifications
+from handler import commands, callback, admin, forms, fsmAdminMentor, extra, notifications, qr_generate
 from database.bot_db import sql_create
 
 
@@ -23,7 +23,11 @@ fsmAdminMentor.register_handlers_forms(db)
 
 forms.register_handlers_forms(db)
 
-extra.register_handlers_extra(db)
+qr_generate.register_handlers_generate_qr(db)
+
+
+
+# extra.register_handlers_extra(db)
 
 
 if __name__ == '__main__':

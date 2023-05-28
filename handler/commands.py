@@ -1,6 +1,8 @@
 from aiogram import types, Dispatcher
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
 from config import bot
+
 
 from database.bot_db import sql_command_random
 from parser.novosti import parser
@@ -57,11 +59,16 @@ async def novosti_handler(message: types.Message):
             f"{data['date']}"
         )
 
+
 def register_handlers_commands(db: Dispatcher):
     db.register_message_handler(start_handler, commands=['mem'])
     db.register_message_handler(quiz_1, commands=['quiz'])
     db.register_message_handler(to_pin, commands=['pin'], commands_prefix='!')
     db.register_message_handler(get_user, commands=['get'])
     db.register_message_handler(novosti_handler, commands=['parser'])
+
+
+
+
 
 
